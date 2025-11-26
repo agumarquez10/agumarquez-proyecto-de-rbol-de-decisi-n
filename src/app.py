@@ -9,7 +9,7 @@ import numpy as np
 import pandas as pd
 
 app = Flask(__name__)
-model = load(open("decision_tree_classifier_default_42.sav", "rb"))
+model = load(open("src/decision_tree_classifier_default_42.sav", "rb"))
 class_dict = {
     "0": "Sin diabetes",
     "1": "Diabetes",
@@ -40,4 +40,3 @@ def index():
         pred_class = None
     
     return render_template("index.html", prediction=pred_class)
-    

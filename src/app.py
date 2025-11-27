@@ -1,6 +1,13 @@
 from src.utils import db_connect
+import pandas as pd
+from utils import load_dataset
 
-engine = db_connect()
+df = load_dataset()
+
+# Cargar el dataset directamente
+df = pd.read_csv("data/diabetes.csv")
+
+
 
 # your code here
 from flask import Flask, request, render_template

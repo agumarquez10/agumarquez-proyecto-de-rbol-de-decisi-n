@@ -14,7 +14,7 @@ class_dict = {
     "0": "Sin diabetes",
     "1": "Diabetes",
 }
-df = pd.read_csv("data.csv")
+df = pd.read_csv("data/diabetes.csv")
 
 num_variables = ['Pregnancies', 'Glucose', 'BloodPressure', 'BMI', 'DiabetesPedigreeFunction', 'Age']
 scaler = StandardScaler()

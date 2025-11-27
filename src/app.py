@@ -1,6 +1,6 @@
 from src.utils import db_connect
 import pandas as pd
-from utils import load_dataset
+from src.utils import load_dataset
 
 df = load_dataset()
 

@@ -24,27 +24,46 @@ class_dict = {
 }
 df = pd.read_csv("data/diabetes.csv")
 
-num_variables = ['Pregnancies', 'Glucose', 'BloodPressure', 'BMI', 'DiabetesPedigreeFunction', 'Age']
+num_variables = [
+    'Pregnancies',
+    'Glucose',
+    'BloodPressure',
+    'SkinThickness',
+    'Insulin',
+    'BMI',
+    'DiabetesPedigreeFunction',
+    'Age'
+]
+
+
 scaler = StandardScaler()
 scaler.fit(df[num_variables])
 
 @app.route("/", methods=["GET", "POST"])
 def index():
     if request.method == "POST":
-        Pregnancies = float(request.form["val1"])
-        Glucose = float(request.form["val2"])
-        BloodPressure = float(request.form["val3"])
-        BMI = float(request.form["val4"])
-        DiabetesPedigreeFunction = float(request.form["val5"])
-        Age = float(request.form["val6"])
+        # Recoger los 8 valores del formulario en el orden correcto
+        vals = [
+            float(request.form["val1"]),  # Pregnancies
+            float(request.form["val2"]),  # Glucose
+            float(request.form["val3"]),  # BloodPressure
+            float(request.form["val7"]),  # SkinThickness
+            float(request.form["val8"]),  # Insulin
+            float(request.form["val4"]),  # BMI
+            float(request.form["val5"]),  # DiabetesPedigreeFunction
+            float(request.form["val6"]),  # Age
+        ]
 
-        data = np.array([[Pregnancies, Glucose, BloodPressure, BMI, DiabetesPedigreeFunction, Age]])
-
+        # Convertir a array y normalizar
+        data = np.array([vals])
         data_normalized = scaler.transform(data)
 
+        # Predicción con el modelo
         prediction = str(model.predict(data_normalized)[0])
         pred_class = class_dict[prediction]
     else:
         pred_class = None
-    
+
+    # Renderizar la plantilla con el resultado
     return render_template("index.html", prediction=pred_class)
+

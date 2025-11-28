@@ -42,7 +42,7 @@ scaler.fit(df[num_variables])
 @app.route("/", methods=["GET", "POST"])
 def index():
     if request.method == "POST":
-        # Recoger los 8 valores del formulario en el orden correcto
+        
         vals = [
             float(request.form["val1"]),  # Pregnancies
             float(request.form["val2"]),  # Glucose
@@ -58,12 +58,12 @@ def index():
         data = np.array([vals])
         data_normalized = scaler.transform(data)
 
-        # Predicción con el modelo
+    
         prediction = str(model.predict(data_normalized)[0])
         pred_class = class_dict[prediction]
     else:
         pred_class = None
 
-    # Renderizar la plantilla con el resultado
+    
     return render_template("index.html", prediction=pred_class)
 

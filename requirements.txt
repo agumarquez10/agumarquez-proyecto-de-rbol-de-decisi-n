@@ -15,3 +15,5 @@ sympy>=1.10.1
 xgboost
 flask==3.1.2
 gunicorn==23.0.0
+streamlit==1.39.0
+numpy
